@@ -1,0 +1,12 @@
+#General
+node_modules
+.DS_Store
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Example data
+./*.csv
+
+# Data generated in tests
+test/test_sandbox
