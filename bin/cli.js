@@ -8,7 +8,7 @@ let file;
 let options = {};
 
 program
-    .version('0.0.1')
+    .version('0.1.0')
     .description('Convert csv files from different sources, like banks to YNAB ( youneedabudget.com ) ready csv files')
     .usage('[options] <filename.csv | csvstring>')
     .arguments('<file>')
