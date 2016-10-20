@@ -114,7 +114,7 @@ To contribute to **to-ynab** you should fork this repository with `git`.
 
 1. Make a change that you might see fit on your own fork ( using _develop_ branch )
 2. Create tests for your change, and also make sure the existing tests pass
-4. Only make pull requests from the develop branch. Pull requests from master won't be merged
+4. Only make pull requests from the _develop_ branch. Pull requests from master won't be merged
 5. Check the opened and closed issues before creating one
 
 Thanks for your help!
