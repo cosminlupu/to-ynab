@@ -32,6 +32,9 @@
     "commander": "^2.9.0",
     "moment": "^2.15.1"
   },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "coveralls": "^2.11.14",

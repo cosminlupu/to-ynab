@@ -1,3 +1,5 @@
+"use strict";
+
 const sources = {
     nordea: {
         headers: ['Bogført', 'Tekst', 'Rentedato', 'Beløb', 'Saldo'],

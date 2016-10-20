@@ -1,3 +1,5 @@
+"use strict";
+
 const fs = require('fs');
 const moment = require('moment');
 const sources = require('./sources');
@@ -10,7 +12,9 @@ let sourceConfig;
 
 //TODO: Be able to provide string of data instead of file
  
-function generate(file, opts = {}){
+function generate(file, opts){
+    if(typeof opts === 'undefined') opts = {};
+
     options = {
         source: 'nordea',
         delimitor: ';',
@@ -152,7 +156,7 @@ function generateCSV(rows){
 
             if(renderRow){
                 YNABHeadings.forEach( (h, i) => {
-                    heading = h.toLowerCase();
+                    var heading = h.toLowerCase();
 
                     newData += createField[heading]( cells[ sourceConfig.map[heading] ], cells );
 

@@ -1,3 +1,5 @@
+"use strict";
+
 /*
 Nordea source tests
 ==============

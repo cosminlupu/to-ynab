@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+"use strict";
+
 const ynab_generator = require('../index.js');
 const program = require('commander');
 let file;
@@ -7,7 +9,7 @@ let options = {};
 
 program
     .version('0.0.1')
-    .description('Generates a csv file in format readable by YNAB. ( youneedabudget.com )')
+    .description('Convert csv files from different sources, like banks to YNAB ( youneedabudget.com ) ready csv files')
     .usage('[options] <filename.csv | csvstring>')
     .arguments('<file>')
     .option('-s, --source [value]', 'Source to use for reading the provided csv. Default: nordea', 'nordea')
