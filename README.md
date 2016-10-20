@@ -4,6 +4,8 @@ _by @cosminlupu_
 
 > Converts bank ( and other sources ) .csv files to .csv files ready to import in YNAB ( [youneedabudget.com](https://youneedabudget.com/) ) 
 
+[![Build Status](https://travis-ci.org/cosminlupu/to-ynab.svg?branch=master)](https://travis-ci.org/cosminlupu/to-ynab) [![Coverage Status](https://coveralls.io/repos/github/cosminlupu/to-ynab/badge.svg?branch=master)](https://coveralls.io/github/cosminlupu/to-ynab?branch=master)
+
 * **GitHub:** <https://github.com/cosminlupu/to-ynab>
 
 ## Features
