@@ -70,9 +70,9 @@ describe("Main", () => {
     it("Should add today's date if no date provided or date is invalid", () => {
         return ynab_generator(`./${config.testDir}/${config.testFiles[4]}`, {
             output: config.testDir,
-        }).then( (result) => {
-            let generatedData = fs.readFileSync(`./${config.testDir}/ynab.csv`, 'utf8').trim();
-            let regex = new RegExp(moment().format('DD/MM/YYYY'), 'g');
+        }).then( () => {
+            const generatedData = fs.readFileSync(`./${config.testDir}/ynab.csv`, 'utf8').trim();
+            const regex = new RegExp(moment().format('DD/MM/YYYY'), 'g');
             
             assert.isOk(regex.test(generatedData), 'File contains today\'s date');
         });

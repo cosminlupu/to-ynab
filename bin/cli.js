@@ -5,7 +5,7 @@
 const ynab_generator = require('../index.js');
 const program = require('commander');
 let file;
-let options = {};
+const options = {};
 
 program
     .version('0.1.0')
@@ -34,12 +34,12 @@ program
 ynab_generator( file, options )
 //Success
 .then( (data) => {
-    console.log(data);
+    console.log(data); // eslint-disable-line no-console
     process.exit(0);
 })
 //Errors
 .catch( (e) => {
-    console.log(e.toString());
+    console.log(e.toString()); // eslint-disable-line no-console
     program.outputHelp();
     process.exit(1);
 });

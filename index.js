@@ -9,11 +9,11 @@ const YNABHeadings = ['Date', 'Payee', 'Category', 'Memo', 'Outflow', 'Inflow'];
 //Default optionss
 let options;
 let sourceConfig;
-
-//TODO: Be able to provide string of data instead of file
  
 function generate(file, opts){
-    if(typeof opts === 'undefined') opts = {};
+    if(typeof opts === 'undefined'){
+        opts = {};
+    }
 
     options = {
         source: 'nordea',
@@ -54,13 +54,13 @@ function validateOptions(opts){
         }
 
         //Validate dateformat
-        let allowedDateFormats = ["DD/MM/YYYY", "YYYY/MM/DD", "YYYY-MM-DD", "DD-MM-YYYY", "DD.MM.YYYY", "MM/DD/YYYY", "YYYY.MM.DD"];
+        const allowedDateFormats = ["DD/MM/YYYY", "YYYY/MM/DD", "YYYY-MM-DD", "DD-MM-YYYY", "DD.MM.YYYY", "MM/DD/YYYY", "YYYY.MM.DD"];
         if(opts.dateformat && allowedDateFormats.indexOf(opts.dateformat) === -1){
             reject(Error(`Date format ${opts.dateformat} is not valid. List of valid dateformats: [ ${allowedDateFormats} ]`)); return;
         }
 
         //Validate last date
-        let dateformat = opts.dateformat || options.dateformat;
+        const dateformat = opts.dateformat || options.dateformat;
         if(opts.lastdate && !moment(opts.lastdate, dateformat, true).isValid() ){
             reject(Error(`${opts.lastdate} is not a valid date for ${dateformat} date format`)); return;
         }
@@ -71,7 +71,7 @@ function validateOptions(opts){
 
             //Directory
             try{
-                let stats = fs.lstatSync(opts.output);
+                const stats = fs.lstatSync(opts.output);
                 if (stats.isDirectory()) {
                     opts.path = opts.output;
                     delete opts.output;
@@ -125,8 +125,8 @@ function getCSVRows(data){
             reject(Error('CSV file is empty')); return;
         }
 
-        var rows = data.toString().replace(/\r/g, '').split('\n').filter( row => !!row );
-        var headerCells = rows.shift().split( options.delimitor ).filter( cell => !!cell );
+        const rows = data.toString().replace(/\r/g, '').split('\n').filter( row => !!row );
+        const headerCells = rows.shift().split( options.delimitor ).filter( cell => !!cell );
 
         //Check if any data rows
         if(!rows.length && headerCells.length){
@@ -134,7 +134,7 @@ function getCSVRows(data){
         }
         
         //Check if the csv heading cells are the same as the source config
-        if( (sourceConfig.headers.length !== headerCells.length) || !sourceConfig.headers.every((h,i)=> h == headerCells[i]) ) {
+        if( sourceConfig.headers.length !== headerCells.length || !sourceConfig.headers.every((h,i) => h == headerCells[i]) ) {
             reject(Error(`CSV headers are not the same as the source config headers. Expected header rows: [ ${sourceConfig.headers.join(options.delimitor)} ]`)); return;
         }
 
@@ -143,20 +143,20 @@ function getCSVRows(data){
 }
 
 function generateCSV(rows){
-    return new Promise((resolve, reject) => {
-        var newData = YNABHeadings.join(';') + '\n';
+    return new Promise((resolve) => {
+        let newData = YNABHeadings.join(';') + '\n';
 
         rows.forEach( (row, y) => {
-            let cells = row.split(options.delimitor).filter( c => !!c );
+            const cells = row.split(options.delimitor).filter( c => !!c );
 
             //Check if we're exceeding the last date
-            var date = moment(cells[sourceConfig.map.date], sourceConfig.dateformat);
-            var lastDate = options.lastdate ? moment(options.lastdate, options.dateformat) : false;
-            var renderRow = !options.lastdate || date.isSameOrBefore(lastDate);
+            const date = moment(cells[sourceConfig.map.date], sourceConfig.dateformat);
+            const lastDate = options.lastdate ? moment(options.lastdate, options.dateformat) : false;
+            const renderRow = !options.lastdate || date.isSameOrBefore(lastDate);
 
             if(renderRow){
                 YNABHeadings.forEach( (h, i) => {
-                    var heading = h.toLowerCase();
+                    const heading = h.toLowerCase();
 
                     newData += createField[heading]( cells[ sourceConfig.map[heading] ], cells );
 
@@ -183,9 +183,9 @@ function writeCSV(data){
             resolve(data); return;
         }
 
-        let filename = path.join(options.path, options.output + '.csv');
+        const filename = path.join(options.path, options.output + '.csv');
 
-        fs.writeFile(filename, data, function (err) {
+        fs.writeFile(filename, data, (err) => {
             if (err){
                 reject(err); return;  
             } 
@@ -197,9 +197,11 @@ function writeCSV(data){
 class createField{
     static date(val){
         
-        if(sourceConfig.map.date === null) return '';
+        if(sourceConfig.map.date === null){
+            return '';
+        }
         
-        var date = moment(val, sourceConfig.dateformat).format(options.dateformat);
+        let date = moment(val, sourceConfig.dateformat).format(options.dateformat);
         
         //For invalid date return today's date
         if(date == 'Invalid date'){
@@ -211,12 +213,14 @@ class createField{
 
     static payee(val, cells){
         if(sourceConfig.map.payee == null && options.payees.length) {
-            var payee = '';
+            let payee = '';
 
-            for(var i = 0; i < options.payees.length; i++){
-                if(payee) break;
+            for(let i = 0; i < options.payees.length; i++){
+                if(payee){
+                    break;
+                }
 
-                var regexp = new RegExp(options.payees[i], 'i');
+                const regexp = new RegExp(options.payees[i], 'i');
 
                 if(regexp.test( cells[sourceConfig.map.memo] ) ){
                     payee = options.payees[i];
@@ -224,27 +228,35 @@ class createField{
             }
 
             return payee;
-        } else {
-            if(sourceConfig.map.payee == null) return '';
-
-            return val;
         }
+        
+        if(sourceConfig.map.payee == null){
+            return '';
+        }
+
+        return val;
     }
 
     static category(val){
-        if(sourceConfig.map.category == null) return '';
+        if(sourceConfig.map.category == null){
+            return '';
+        }
 
         return val;
     }
 
     static memo(val){
-        if(sourceConfig.map.memo == null) return '';
+        if(sourceConfig.map.memo == null){
+            return '';
+        }
 
         return val.replace(/\s{2,100}/g, ' ');
     }
 
     static inflow(val){
-        if(sourceConfig.map.inflow == null) return '';
+        if(sourceConfig.map.inflow == null){
+            return '';
+        }
 
         val = val.replace(',', '.');
 
@@ -256,7 +268,9 @@ class createField{
     }
 
     static outflow(val){
-        if(sourceConfig.map.outflow == null) return '';
+        if(sourceConfig.map.outflow == null){
+            return '';
+        }
 
         val = val.replace(',', '.');
 
@@ -268,9 +282,9 @@ class createField{
     }
 }
 
-let util = {
+const util = {
     extend: function(obj1, obj2){
-        var obj3 = {};
+        const obj3 = {};
 
         Object.keys(obj1).forEach( key => {
             obj3[key] = obj1[key];
@@ -282,6 +296,6 @@ let util = {
 
         return obj3;
     }
-}
+};
 
 module.exports = generate;

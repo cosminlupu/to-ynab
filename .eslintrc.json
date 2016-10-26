@@ -1,0 +1,41 @@
+{   
+    "extends": "eslint:recommended",
+    "env": {
+        "node": true,
+        "es6": true,
+        "mocha": true
+    },
+    "rules": {
+        //Warnings
+        "no-extra-semi": 1,
+        "no-console": 1,
+        "indent": [1, 4],
+        "no-inner-declarations": 1,
+        "no-multiple-empty-lines": [1, { "max": 2, "maxEOF": 2 }],
+        "arrow-spacing": 1,
+        "prefer-arrow-callback": 1,
+        "prefer-const": 1,
+        "no-var": 1,
+        
+        //Errors
+        "no-inner-declarations": 2,
+        "no-undef": 2,
+        "curly": 2,
+        "no-eval": 2,
+        "no-extend-native": 2,
+        "no-new-wrappers": 2,
+        "no-with": 2,
+        "semi": 2,
+        "no-dupe-args": 2,
+        "no-dupe-keys": 2,
+        "no-empty": 2,
+        "no-extra-parens": 2,
+        "no-regex-spaces": 2,
+        "use-isnan": 2,
+        "valid-typeof": 2,
+        "no-else-return": 2,
+        "no-empty-function": 2,
+        "no-const-assign": 2,
+        "no-lonely-if": 2
+    }
+}
