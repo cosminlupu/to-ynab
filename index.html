@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>To-ynab by cosminlupu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">To-ynab</h1>
+      <h2 class="project-tagline">Convert csv files from different sources, like banks to YNAB ( youneedabudget.com ) ready csv files</h2>
+      <a href="https://github.com/cosminlupu/to-ynab" class="btn">View on GitHub</a>
+      <a href="https://github.com/cosminlupu/to-ynab/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/cosminlupu/to-ynab/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="to-ynab" class="anchor" href="#to-ynab" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>to-ynab</h1>
+
+<p><em>by <a href="https://github.com/cosminlupu" class="user-mention">@cosminlupu</a></em></p>
+
+<blockquote>
+<p>Converts bank ( and other sources ) .csv files to .csv files ready to import in YNAB ( <a href="https://youneedabudget.com/">youneedabudget.com</a> ) </p>
+</blockquote>
+
+<p><a href="https://travis-ci.org/cosminlupu/to-ynab"><img src="https://travis-ci.org/cosminlupu/to-ynab.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/github/cosminlupu/to-ynab?branch=master"><img src="https://coveralls.io/repos/github/cosminlupu/to-ynab/badge.svg?branch=master" alt="Coverage Status"></a></p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li>CSV conversion</li>
+<li>API to use <em>to-ynab</em> programmatically</li>
+<li>CLI for easy use</li>
+</ul>
+
+<h3>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TODO</h3>
+
+<ul>
+<li>Support for more .csv sources ( Currently only Nordea bank )</li>
+<li>Support for own source config via a json file</li>
+</ul>
+
+<h2>
+<a id="how-to-install" class="anchor" href="#how-to-install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to install</h2>
+
+<p>To use <em>to-ynab</em> via cli, install it globally using <strong>npm</strong>:</p>
+
+<pre><code>npm install -g to-ynab
+</code></pre>
+
+<p>If you want to use the API instead, install it locally:</p>
+
+<pre><code>npm install --save to-ynab
+</code></pre>
+
+<p>then, include it in your javascript:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> to<span class="pl-k">-</span>ynab <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>to-ynab<span class="pl-pds">'</span></span>);</pre></div>
+
+<h2>
+<a id="how-to-use-via-cli" class="anchor" href="#how-to-use-via-cli" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use via CLI</h2>
+
+<p>To create a YNAB ready <code>.csv</code> file from your own .csv file</p>
+
+<pre><code>to-ynab &lt;file.csv&gt;
+</code></pre>
+
+<p>For example:</p>
+
+<pre><code>to-ynab transactions.csv
+</code></pre>
+
+<p>Will generate <code>ynab.csv</code>.</p>
+
+<h3>
+<a id="available-cli-options" class="anchor" href="#available-cli-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Available CLI options</h3>
+
+<ul>
+<li>
+<code>-h</code>, <code>--help</code>                output usage information</li>
+<li>
+<code>-V</code>, <code>--version</code>             output the version number</li>
+<li>
+<code>-s</code>, <code>--source [value]</code>      Source to use for reading the provided csv. Default: <code>nordea</code>
+</li>
+<li>
+<code>-o</code>, <code>--output [value]</code>      Output filename (with or without .csv extension). Default: <code>ynab</code>
+</li>
+<li>
+<code>-l</code>, <code>--lastdate [value]</code>    Last date for a transaction to be added to generated csv.</li>
+<li>
+<code>-p</code>, <code>--payees [payees]</code>     List of payees to match in description, comma separated.</li>
+<li>
+<code>-d</code>, <code>--delimitor [value]</code>   Cell delimitor in source file ( same one will be used in generated file). Default: <code>;</code>
+</li>
+<li>
+<code>-c</code>, <code>--csvstring</code>           Provide a csv string instead of file</li>
+<li>
+<code>-n</code>, <code>--no-write</code>            Does not write the generated file, it just outputs it.</li>
+<li>
+<code>-f</code>, <code>--dateformat [value]</code>  Date format for the generated csv. Default: <code>DD/MM/YYYY</code>
+</li>
+</ul>
+
+<h2>
+<a id="how-to-use-via-api" class="anchor" href="#how-to-use-via-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to use via API</h2>
+
+<p>Include <em>to-ynab</em> in your javascript with:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">let</span> to<span class="pl-k">-</span>ynab <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>to-ynab<span class="pl-pds">'</span></span>);</pre></div>
+
+<p>Then to render a csv file:</p>
+
+<div class="highlight highlight-source-js"><pre>
+to<span class="pl-k">-</span><span class="pl-en">ynab</span>(<span class="pl-s"><span class="pl-pds">'</span>transactions.csv<span class="pl-pds">'</span></span>)
+    .<span class="pl-en">then</span>( (<span class="pl-smi">result</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(result); <span class="pl-c">//In this case result will a success message with the location of the generated file</span>
+    }).<span class="pl-en">catch</span>( (<span class="pl-smi">err</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(err);
+    });</pre></div>
+
+<p>Passing options:</p>
+
+<div class="highlight highlight-source-js"><pre>
+to<span class="pl-k">-</span><span class="pl-en">ynab</span>(<span class="pl-s"><span class="pl-pds">'</span>transactions.csv<span class="pl-pds">'</span></span>, {
+        output<span class="pl-k">:</span> <span class="pl-smi">myfile</span>.<span class="pl-smi">csv</span>,
+        write<span class="pl-k">:</span> <span class="pl-c1">false</span>
+    }).<span class="pl-en">then</span>( (<span class="pl-smi">result</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(result); <span class="pl-c">//In this case result will be a string version of the generated file</span>
+    }).<span class="pl-en">catch</span>( (<span class="pl-smi">err</span>) <span class="pl-k">=&gt;</span> {
+        <span class="pl-en">console</span>.<span class="pl-c1">log</span>(err);
+    });</pre></div>
+
+<h3>
+<a id="available-api-options" class="anchor" href="#available-api-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Available API options</h3>
+
+<div class="highlight highlight-source-js"><pre>{
+    source<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>nordea<span class="pl-pds">'</span></span>,                   <span class="pl-c">//Source to use for reading the provided csv. Default: _nordea_</span>
+    output<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>ynab<span class="pl-pds">'</span></span>,                     <span class="pl-c">//Output filename (with or without .csv extension). Default: _ynab_</span>
+    lastdate<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>18/10/2016<span class="pl-pds">'</span></span>,             <span class="pl-c">//Last date for a transaction to be added to generated csv.</span>
+    payees<span class="pl-k">:</span> [<span class="pl-s"><span class="pl-pds">'</span>Just eat<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Spotify<span class="pl-pds">'</span></span>],    <span class="pl-c">//List of payees to match in description, comma separated.</span>
+    delimitor<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>;<span class="pl-pds">'</span></span>,                     <span class="pl-c">//Cell delimitor in source file ( same one will be used in generated file). Default: _;_</span>
+    csvstring<span class="pl-k">:</span> <span class="pl-c1">false</span>,                   <span class="pl-c">//Provide a csv string instead of file</span>
+    write<span class="pl-k">:</span> <span class="pl-c1">true</span>,                        <span class="pl-c">//Writes the contents to file. Default: _true_</span>
+    dateformat<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>DD/MM/YYYY<span class="pl-pds">'</span></span>            <span class="pl-c">//Date format for the generated csv. Default: _DD/MM/YYYY_</span>
+}</pre></div>
+
+<h2>
+<a id="developing--extending" class="anchor" href="#developing--extending" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Developing / extending</h2>
+
+<ul>
+<li>To install dependencies execute <code>npm install</code>
+</li>
+<li>To test, execute <code>npm test</code> ( This will run <em>Mocha</em> tests and <em>Instanbul</em> coverage report)</li>
+<li>To execute the CLI, execute <code>npm start -- &lt;file.csv&gt; [options]</code>
+</li>
+<li>To install your local version globally, execute <code>npm install -g .</code> on the project folder ( Only use for development)</li>
+</ul>
+
+<h2>
+<a id="how-to-contribute" class="anchor" href="#how-to-contribute" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to contribute</h2>
+
+<p>To contribute to <strong>to-ynab</strong> you should fork this repository with <code>git</code>.</p>
+
+<ol>
+<li>Make a change that you might see fit on your own fork ( using <em>develop</em> branch )</li>
+<li>Create tests for your change, and also make sure the existing tests pass</li>
+<li>Only make pull requests from the <em>develop</em> branch. Pull requests from master won't be merged</li>
+<li>Check the opened and closed issues before creating one</li>
+</ol>
+
+<p>Thanks for your help!</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>MIT</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/cosminlupu/to-ynab">To-ynab</a> is maintained by <a href="https://github.com/cosminlupu">cosminlupu</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
